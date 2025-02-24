@@ -1,0 +1,105 @@
+.wrapper {
+    margin-bottom: 0px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.row-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+:host {
+    display: block;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:not(:last-child) {
+    margin-right: 10px;
+}
+
+/* Specific styles for the button container */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Styles for the "Back" button */
+.button-container button:first-child {
+    background-color: #6c757d;
+}
+
+.button-container button:first-child:hover {
+    background-color: #5a6268;
+}
+
+/* Styles for the "Submit" button in Step 3 */
+.button-container button:last-child {
+    background-color: #28a745;
+}
+
+.button-container button:last-child:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,26 @@
+<div class="banner-wrap">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="banner-left">
+                <h1>Claims made simple..</h1>
+                <p>We understand that filing a claim can be stressful, so we're here to guide you every step of the way.
+                </p>
+                <div class="btn_container">
+                    <button (click)="scrollToForm()">Start My Claim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-wrap" #claimForm>
+    <div class="container">
+        <div [ngSwitch]="currentStep">
+            <app-step1 *ngSwitchCase="1" (nextStep)="nextStep($event)"></app-step1>
+            <ng-container *ngSwitchCase="2">
+                <ng-container #accidentComponentContainer></ng-container>
+            </ng-container>
+            <app-step3 *ngSwitchCase="3" (previousStep)="previousStep()" (formSubmit)="onSubmit()"></app-step3>
+        </div>
+    </div>
+</div>

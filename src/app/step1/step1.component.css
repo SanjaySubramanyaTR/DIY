@@ -1,0 +1,29 @@
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+}
+
+input {
+    width: 96%;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.form-left {
+    width: 30%;
+    float: left;
+}
+
+.form-right {
+    width: 70%;
+    float: left;
+    text-align: right;
+}

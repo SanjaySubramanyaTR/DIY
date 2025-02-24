@@ -1,0 +1,19 @@
+<form>
+    <h2>Step 3: Additional Information</h2>
+    <div>
+        <label for="phone">Phone Number:</label>
+        <input id="phone" type="tel" [(ngModel)]="formData.phone" name="phone" required>
+    </div>
+    <div>
+        <label for="occupation">Occupation:</label>
+        <input id="occupation" [(ngModel)]="formData.occupation" name="occupation" required>
+    </div>
+    <div>
+        <label for="comments">Comments:</label>
+        <textarea id="comments" [(ngModel)]="formData.comments" name="comments" rows="4"></textarea>
+    </div>
+    <div class="button-container">
+        <button (click)="onBack()">Back</button>
+        <button (click)="onSubmit()">Submit</button>
+    </div>
+</form>

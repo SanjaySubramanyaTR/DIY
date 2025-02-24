@@ -1,0 +1,23 @@
+<form>
+    <h2>Step 2: Address Information</h2>
+    <div>
+        <label for="street">Street Address:</label>
+        <input id="street" [(ngModel)]="formData.street" name="street" required>
+    </div>
+    <div>
+        <label for="city">City:</label>
+        <input id="city" [(ngModel)]="formData.city" name="city" required>
+    </div>
+    <div>
+        <label for="state">State:</label>
+        <input id="state" [(ngModel)]="formData.state" name="state" required>
+    </div>
+    <div>
+        <label for="zipCode">Zip Code:</label>
+        <input id="zipCode" [(ngModel)]="formData.zipCode" name="zipCode" required>
+    </div>
+    <div class="button-container">
+        <button (click)="onBack()">Back</button>
+        <button (click)="onContinue()">Continue</button>
+    </div>
+</form>
