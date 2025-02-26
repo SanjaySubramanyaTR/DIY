@@ -7,7 +7,7 @@ import { FormDataService } from '../services/form-data.service';
   templateUrl: './step2.component.html',
   styleUrls: ['./step2.component.css']
 })
-export class Step2Component implements OnInit {
+export class Step2Component {
   @Input() formData!: FormData;
   @Output() nextStep = new EventEmitter<void>();
   @Output() previousStep = new EventEmitter<void>();
@@ -17,24 +17,6 @@ export class Step2Component implements OnInit {
     this.formData = this.formDataService.getFormData();
   }
 
-  ngOnInit() {
-    // Ensure formData is initialized
-    if (!this.formData) {
-      this.formData = {
-        zipCode: '',
-        injuryType: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        street: '',
-        city: '',
-        state: '',
-        phone: '',
-        occupation: '',
-        comments: ''
-      };
-    }
-  }
   onContinue() {
     this.nextStep.emit();
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormDataService } from '../services/form-data.service';
 import { ZipCodeService, ZipCodeRange } from '../services/zipcode.service';
 import { FormData } from '../form-data.model';
@@ -11,7 +12,7 @@ import { FormData } from '../form-data.model';
 export class Step1Component implements OnInit {
   @Output() nextStep = new EventEmitter<string>();
 
-  formData: FormData;
+  step1Form: FormGroup;
   injuryTypes = [
     'Auto Accident',
     'Motorcycle Accident',
@@ -21,41 +22,54 @@ export class Step1Component implements OnInit {
   zipCodeRanges: ZipCodeRange[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private formDataService: FormDataService,
     private zipCodeService: ZipCodeService
   ) {
-    this.formData = this.formDataService.getFormData();
+    this.step1Form = this.formBuilder.group({
+      zipCode: ['', [Validators.required, Validators.pattern(/^\d{5}(-\d{4})?$/)]],
+      injuryType: ['', Validators.required]
+    });
   }
 
   ngOnInit() {
     this.zipCodeRanges = this.zipCodeService.getZipCodeRanges();
     this.highlightedState = this.formDataService.getHighlightedState();
-    if (this.formData.zipCode) {
+    const savedFormData = this.formDataService.getFormData();
+    if (savedFormData.zipCode) {
+      this.step1Form.patchValue(savedFormData);
       this.determineState();
     }
   }
 
   onContinue() {
-    this.formDataService.setFormData(this.formData);
-    this.formDataService.setHighlightedState(this.highlightedState);
-    console.log('Emitting injury type:', this.formData.injuryType);
-    this.nextStep.emit(this.formData.injuryType);
+    if (this.step1Form.valid) {
+      const formData: FormData = this.step1Form.value;
+      this.formDataService.setFormData(formData);
+      this.formDataService.setHighlightedState(this.highlightedState);
+      console.log('Emitting injury type:', formData.injuryType);
+      this.nextStep.emit(formData.injuryType);
+    } else {
+      // Mark all fields as touched to trigger validation messages
+      Object.keys(this.step1Form.controls).forEach(key => {
+        const control = this.step1Form.get(key);
+        control?.markAsTouched({ onlySelf: true });
+      });
+    }
   }
 
   validateZipCode() {
-    const zipCodePattern = /^\d{5}(-\d{4})?$/;
-    if (!zipCodePattern.test(this.formData.zipCode)) {
-      alert('Please enter a valid US zip code (e.g., 12345 or 12345-6789)');
-      this.formData.zipCode = '';
+    const zipCodeControl = this.step1Form.get('zipCode');
+    if (zipCodeControl && zipCodeControl.valid) {
+      this.determineState();
+    } else {
       this.highlightedState = null;
       this.formDataService.setHighlightedState(null);
-    } else {
-      this.determineState();
     }
   }
 
   determineState() {
-    const zipCode = parseInt(this.formData.zipCode.split('-')[0], 10);
+    const zipCode = parseInt(this.step1Form.get('zipCode')?.value.split('-')[0], 10);
     for (const range of this.zipCodeRanges) {
       if (zipCode >= parseInt(range.min, 10) && zipCode <= parseInt(range.max, 10)) {
         this.highlightedState = range.state;

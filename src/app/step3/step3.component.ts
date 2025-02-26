@@ -18,7 +18,6 @@ export class Step3Component {
   }
 
   ngOnInit() {
-    // Ensure formData is initialized
     if (!this.formData) {
       this.formData = {
         zipCode: '',
@@ -31,7 +30,25 @@ export class Step3Component {
         state: '',
         phone: '',
         occupation: '',
-        comments: ''
+        comments: '',
+        incidentDate: '',
+        fault: '',
+        injured: '',
+        insurance: '',
+        attorney: '',
+        treatment: '',
+        injuries: {
+          whiplash: false,
+          lostLimb: false,
+          brainInjury: false,
+          brokenBones: false,
+          spinalCord: false,
+          lossOfLife: false
+        },
+        accidentState: '',
+        accidentCity: '',  // Add this
+        medicalBills: '',  // Add this
+        injuryDescription: ''  // Add this
       };
     }
   }
